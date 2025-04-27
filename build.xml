@@ -108,6 +108,19 @@
         <jar destfile="${dist}/mallet.jar" basedir="${class}"/>
     </target>
 
+    <target name="war" depends="jar">
+        <war destfile="dist/mallet.war"
+             webxml="web/WEB-INF/web.xml"
+             manifest="web/META-INF/MANIFEST.MF">
+            <fileset dir="class" includes="*.class"/>
+            <zipfileset src="lib/jetty-util-6.1.25.jar" includes="**/*.*"/>
+            <zipfileset src="lib/jetty-6.1.25.jar" includes="**/*.*"/>
+            <zipfileset src="lib/javax.servlet-api-4.0.1.jar" includes="**/*.*"/>
+            <lib dir="lib" includes="**/*.*"/>
+            <classes dir="class"/>
+        </war>
+    </target>
+
     <target name="test" depends="compile">
         <junit printsummary="yes">
             <classpath>
